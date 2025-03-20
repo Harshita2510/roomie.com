@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mess Owner Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        /* Header */
+        header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            z-index: 1000;
+        }
+
+        /* Dashboard Layout */
+        .dashboard {
+            display: flex;
+            flex: 1;
+            height: calc(100vh - 100px); /* Adjusted to fit between header & footer */
+            margin-top: 60px;
+            margin-bottom: 40px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: #222;
+            color: white;
+            padding: 20px;
+            height: calc(100vh - 100px);
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .contact {
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .logout {
+            margin-top: auto;
+            padding: 10px;
+            background: red;
+            color: white;
+            text-align: center;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .logout:hover {
+            background: darkred;
+        }
+
+        /* Content */
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+            flex: 1;
+            height: calc(100vh - 100px);
+            overflow-y: auto;
+            text-align: center;
+        }
+
+        .mess-image {
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .info-container {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .info-item {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 600px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .edit-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .edit-btn:hover {
+            background: #0056b3;
+        }
+
+        .input-box {
+            display: none;
+            margin-top: 5px;
+        }
+
+        .apply-btn {
+            margin-top: 20px;
+            padding: 10px;
+            background: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .apply-btn:hover {
+            background: darkgreen;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Mess Owner Dashboard</h1>
+    </header>
+
+    <div class="dashboard">
+        <aside class="sidebar">
+            <img src="https://images.unsplash.com/photo-1635107510862-53886e926b74?w=600&auto=format&fit=crop&q=60" class="profile-pic" alt="Profile Picture">
+            <div class="contact">
+                <p>📞 Mobile: +91 9876543210</p>
+                <p>📱 WhatsApp: +91 9876543210</p>
+                <p>📸 Instagram: @messhub</p>
+            </div>
+            <div class="logout">Logout</div>
+        </aside>
+
+        <main class="content">
+            <h2>Mess Information</h2>
+            <img src="https://media.istockphoto.com/id/1146476161/photo/leftovers-on-the-table.jpg?s=612x612&w=0&k=20&c=FnRYAqg2AdTknkcIBSkOOwX1uLZ5Bb19lSGLAsl1KNc=" class="mess-image" alt="Mess Image">
+            <div class="info-container" id="infoContainer">
+                <!-- Info Fields Will Be Inserted Here Dynamically -->
+            </div>
+            <button class="apply-btn" id="applyChanges">Apply Changes</button>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Roomie.com | All Rights Reserved</p>
+    </footer>
+
+    <script>
+        const messData = {
+            messName: "Tasty Bites Mess",
+            address: "123 Street, City",
+            timings: "8 AM - 10 PM",
+            type: "Veg & Non-Veg",
+            cost: "₹3500",
+            description: "High-quality food with hygiene standards.",
+            specialDishes: "Paneer Butter Masala, Chicken Biryani",
+            capacity: "50",
+            subscription: "Monthly",
+            contactPerson: "Rajesh Kumar",
+            location: "https://goo.gl/maps/example"
+        };
+
+        const infoContainer = document.getElementById("infoContainer");
+
+        function createInfoField(label, key) {
+            const div = document.createElement("div");
+            div.className = "info-item";
+            div.innerHTML = `
+                <span><strong>${label}:</strong> <span id="${key}">${messData[key]}</span></span>
+                <button class="edit-btn" onclick="editField('${key}')">Edit</button>
+                <input type="text" id="${key}-input" class="input-box">
+            `;
+            infoContainer.appendChild(div);
+        }
+
+        function loadMessInfo() {
+            infoContainer.innerHTML = "";
+            createInfoField("Mess Name", "messName");
+            createInfoField("Address", "address");
+            createInfoField("Timings", "timings");
+            createInfoField("Type", "type");
+            createInfoField("Monthly Cost", "cost");
+            createInfoField("Description", "description");
+            createInfoField("Special Dishes", "specialDishes");
+            createInfoField("Seating Capacity", "capacity");
+            createInfoField("Subscription Plan", "subscription");
+            createInfoField("Contact Person", "contactPerson");
+            createInfoField("Google Maps Location", "location");
+        }
+
+        function editField(key) {
+            document.getElementById(`${key}-input`).style.display = "block";
+            document.getElementById(`${key}-input`).value = messData[key];
+        }
+
+        document.getElementById("applyChanges").addEventListener("click", function () {
+            Object.keys(messData).forEach(key => {
+                const inputElement = document.getElementById(`${key}-input`);
+                if (inputElement && inputElement.style.display === "block") {
+                    messData[key] = inputElement.value;
+                }
+            });
+            console.log("Updated Data:", messData);
+            alert("Mess Information Updated Successfully!");
+            loadMessInfo();
+        });
+
+        loadMessInfo();
+    </script>
+</body>
+
+</html>

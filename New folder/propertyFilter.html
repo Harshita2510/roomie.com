@@ -6,24 +6,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Property Listings</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
             display: flex;
-            justify-content: center;
-            align-items: center;
             flex-direction: column;
-            padding: 20px;
+            align-items: center;
+        }
+
+        /* Header */
+        .header {
+            width: 100%;
+            background: #d32f2f;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        /* Search Box */
+        .search-container {
+            margin-top: 70px;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .search-container input {
+            width: 50%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            width: 90%;
+            margin-top: 10px;
+        }
+
+        /* Filter Section */
+        .filter-container {
+            width: 250px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            height: 300px;
+            position: sticky;
+            top: 90px;
+        }
+
+        .filter-container h3 {
+            margin-bottom: 10px;
+        }
+
+        .filter-container label {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .filter-container select,
+        .filter-container input {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Property List */
+        .property-container {
+            flex: 1;
+            margin-left: 20px;
         }
 
         .card {
             display: flex;
-            width: 1000px;
+            width: 100%;
             background: white;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            margin: 20px;
-            overflow: hidden;
+            margin: 10px 0;
             padding: 15px;
         }
 
@@ -40,19 +117,14 @@
         }
 
         .details h2 {
-            margin: 0 0 10px;
             font-size: 20px;
-        }
-
-        .info {
-            display: flex;
-            justify-content: space-between;
             margin-bottom: 10px;
         }
 
-        .owner {
-            
-            
+        .property-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
             font-size: 14px;
             color: #555;
         }
@@ -61,10 +133,7 @@
             font-size: 18px;
             font-weight: bold;
             color: #e60000;
-        }
-
-        .buttons {
-            margin-top: 10px;
+            margin: 10px 0;
         }
 
         .buttons button {
@@ -74,51 +143,362 @@
             padding: 10px;
             cursor: pointer;
             border-radius: 5px;
-            margin-right: 10px;
+        }
+
+        .owner {
+            font-size: 14px;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        /* Footer */
+        .footer {
+            width: 100%;
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
         }
     </style>
 </head>
 
 <body>
-    <div class="card">
-        <img src="https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg"
-            alt="Property Image">
-        <div class="details">
-            <h2>3 BHK Apartment for Rent in Hosa Road</h2>
-            <div class="property-info">
-                <span>Furnishing: Furnished</span>
-                <span>Bathrooms: 2</span>
-                <span>Tenant Preferred: Bachelors/Family</span>
-            </div>
-            <p>Well furnished 2.5 BHK with good woodwork available for rent from 1st March, 2025.</p>
-            <div class="price">₹54,000</div>
-            <div class="buttons">
-                <button>Contact Broker</button>
 
-            </div>
-            <div class="owner">Owner: Shweta Gupta</div>
-        </div>
+    <div class="header">Property Listings</div>
+
+    <div class="search-container">
+        <input type="text" id="searchBox" placeholder="Search by location...">
     </div>
 
-    <div class="card">
-        <img src="https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg"
-            alt="Property Image">
-        <div class="details">
-            <h2>4 BHK Villa for Rent in Hennur Main Road</h2>
-            <div class="info">
-                <span>Furnishing: Semi-Furnished</span>
-                <span>Bathrooms: 4</span>
-                <span>Tenant Preferred: Bachelors</span>
-            </div>
-            <p>Villa is available for rent. It covered an area of 3000 sq-ft, it is a good location property.</p>
-            <div class="price">₹45,000</div>
-            <div class="buttons">
-                <button>Contact Broker</button>
+    <div class="main-container">
+        <div class="filter-container">
+            <h3>Filters</h3>
+            <label for="priceRange">Price Range</label>
+            <input type="range" id="priceRange" min="10000" max="150000" step="1000">
+            <span id="priceValue">₹10000</span>
+            <br>
+            <br>
 
-            </div>
-            <div class="owner">Owner: Naveen</div>
+            <label for="furnishing">Furnishing</label>
+            <select id="furnishing">
+                <option value="">Any</option>
+                <option value="Furnished">Furnished</option>
+                <option value="Semi-Furnished">Semi-Furnished</option>
+                <option value="Unfurnished">Unfurnished</option>
+            </select>
+
+            <label for="bathrooms">Bathrooms</label>
+            <select id="bathrooms">
+                <option value="">Any</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3+</option>
+            </select>
+
+            <label for="tenantPreferred">Tenant Preferred</label>
+            <select id="tenantPreferred">
+                <option value="">All</option>
+                <option value="Bachelors">Bachelors</option>
+                <option value="Family">Family</option>
+                <option value="Working Professionals">Working Professionals</option>
+                <option value="Working Professionals">students</option>
+
+            </select>
         </div>
+
+        <div class="property-container" id="propertyList"></div>
     </div>
+
+    <div class="footer">© 2025 Property Listings. All Rights Reserved.</div>
+
+    <script>
+        const properties = [
+            {
+                img: "https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg",
+                head: "2 BHK Apartment for Rent in Whitefield",
+                info: { furnishing: "Semi-Furnished", bathrooms: 2, Tenant_Preferred: "Bachelors" },
+                description: "Modern 2 BHK apartment available from April 2025.",
+                price: "₹45,000",
+                owner: "Owner: Rajesh Kumar",
+                location: "Whitefield"
+            },
+            {
+                img: "https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg",
+                head: "1 BHK Flat for Rent in Koramangala",
+                info: { furnishing: "Fully Furnished", bathrooms: 1, Tenant_Preferred: "Working Professionals" },
+                description: "Compact yet stylish 1 BHK ideal for working individuals.",
+                price: "₹30,000",
+                owner: "Owner: Meena Sharma",
+                location: "Koramangala"
+            },
+            {
+                img: "https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg",
+                head: "4 BHK Villa for Rent in Sarjapur Road",
+                info: { furnishing: "Fully Furnished", bathrooms: 4, Tenant_Preferred: "Family" },
+                description: "Luxury villa with private garden and swimming pool.",
+                price: "₹1,20,000",
+                owner: "Owner: Aditya Verma",
+                location: "Sarjapur Road"
+            },
+            {
+                img: "https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg",
+                head: "Studio Apartment for Rent in Indiranagar",
+                info: { furnishing: "Furnished", bathrooms: 1, Tenant_Preferred: "Students" },
+                description: "Cozy studio apartment with all utilities included.",
+                price: "₹28,000",
+                owner: "Owner: Karthik Reddy",
+                location: "Indiranagar"
+            },
+            {
+                img: "https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg",
+                head: "3 BHK Apartment for Rent in Bellandur",
+                info: { furnishing: "Semi-Furnished", bathrooms: 3, Tenant_Preferred: "Bachelors" },
+                description: "Spacious 3 BHK with modular kitchen and balconies.",
+                price: "₹60,000",
+                owner: "Owner: Neha Kapoor",
+                location: "Bellandur"
+            },
+            {
+                img: "https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg",
+                head: "2 BHK Flat for Rent in Electronic City",
+                info: { furnishing: "Fully Furnished", bathrooms: 2, Tenant_Preferred: "Family" },
+                description: "Well-maintained 2 BHK close to IT parks.",
+                price: "₹42,000",
+                owner: "Owner: Sandeep Singh",
+                location: "Electronic City"
+            },
+            {
+                img: "https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg",
+                head: "1 RK Apartment for Rent in Jayanagar",
+                info: { furnishing: "Furnished", bathrooms: 1, Tenant_Preferred: "Single Occupancy" },
+                description: "Affordable 1 RK with a compact kitchen.",
+                price: "₹18,000",
+                owner: "Owner: Sunita Patel",
+                location: "Jayanagar"
+            },
+            {
+                img: "https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg",
+                head: "3 BHK Penthouse for Rent in MG Road",
+                info: { furnishing: "Fully Furnished", bathrooms: 3, Tenant_Preferred: "Family" },
+                description: "Exclusive penthouse with rooftop terrace.",
+                price: "₹95,000",
+                owner: "Owner: Manish Tiwari",
+                location: "MG Road"
+            },
+            {
+                img: "https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg",
+                head: "2.5 BHK Apartment for Rent in Marathahalli",
+                info: { furnishing: "Semi-Furnished", bathrooms: 2, Tenant_Preferred: "Bachelors" },
+                description: "2.5 BHK with extra study room, ideal for WFH.",
+                price: "₹48,000",
+                owner: "Owner: Priya Desai",
+                location: "Marathahalli"
+            },
+            {
+                img: "https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg",
+                head: "3 BHK Apartment for Rent in Yelahanka",
+                info: { furnishing: "Unfurnished", bathrooms: 3, Tenant_Preferred: "Family" },
+                description: "Spacious 3 BHK with ample parking.",
+                price: "₹55,000",
+                owner: "Owner: Ravi Shankar",
+                location: "Yelahanka"
+            },
+            {
+                img: "https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg",
+                head: "1 BHK Apartment for Rent in Indiranagar",
+                info: { furnishing: "Fully Furnished", bathrooms: 1, Tenant_Preferred: "Working Professionals" },
+                description: "Fully furnished 1 BHK in a prime location with great connectivity.",
+                price: "₹35,000",
+                owner: "Owner: Suresh Reddy",
+                location: "Indiranagar"
+            },
+            {
+                img: "https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg",
+                head: "3 BHK Apartment for Rent in Whitefield",
+                info: { furnishing: "Semi-Furnished", bathrooms: 3, Tenant_Preferred: "Family" },
+                description: "Spacious 3 BHK with excellent amenities and security.",
+                price: "₹65,000",
+                owner: "Owner: Anjali Sharma",
+                location: "Whitefield"
+            },
+            {
+                img: "https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg",
+                head: "2 BHK Flat for Rent in Banashankari",
+                info: { furnishing: "Fully Furnished", bathrooms: 2, Tenant_Preferred: "Bachelors" },
+                description: "Fully furnished 2 BHK with power backup and lift.",
+                price: "₹40,000",
+                owner: "Owner: Mohan Kumar",
+                location: "Banashankari"
+            },
+            {
+                img: "https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg",
+                head: "1 RK Apartment for Rent in HSR Layout",
+                info: { furnishing: "Furnished", bathrooms: 1, Tenant_Preferred: "Students" },
+                description: "Affordable 1 RK close to educational institutes.",
+                price: "₹20,000",
+                owner: "Owner: Rajeev Nair",
+                location: "HSR Layout"
+            },
+            {
+                img: "https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg",
+                head: "4 BHK Independent House for Rent in Jayanagar",
+                info: { furnishing: "Unfurnished", bathrooms: 4, Tenant_Preferred: "Family" },
+                description: "Spacious independent house with a garden.",
+                price: "₹80,000",
+                owner: "Owner: Ramesh Gowda",
+                location: "Jayanagar"
+            },
+            {
+                img: "https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg",
+                head: "2 BHK Apartment for Rent in Electronic City",
+                info: { furnishing: "Semi-Furnished", bathrooms: 2, Tenant_Preferred: "Bachelors" },
+                description: "Close to major IT hubs, ideal for professionals.",
+                price: "₹38,000",
+                owner: "Owner: Arvind Yadav",
+                location: "Electronic City"
+            },
+            {
+                img: "https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg",
+                head: "1 BHK Apartment for Rent in KR Puram",
+                info: { furnishing: "Fully Furnished", bathrooms: 1, Tenant_Preferred: "Working Professionals" },
+                description: "Modern apartment with 24/7 security and gym facilities.",
+                price: "₹32,000",
+                owner: "Owner: Pooja Batra",
+                location: "KR Puram"
+            },
+            {
+                img: "https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg",
+                head: "3 BHK Duplex for Rent in Hebbal",
+                info: { furnishing: "Semi-Furnished", bathrooms: 3, Tenant_Preferred: "Family" },
+                description: "Spacious duplex with a private terrace.",
+                price: "₹70,000",
+                owner: "Owner: Dinesh Shetty",
+                location: "Hebbal"
+            },
+            {
+                img: "https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg",
+                head: "2 BHK Apartment for Rent in Malleshwaram",
+                info: { furnishing: "Fully Furnished", bathrooms: 2, Tenant_Preferred: "Family" },
+                description: "Beautifully designed apartment in a prime locality.",
+                price: "₹50,000",
+                owner: "Owner: Shweta Agarwal",
+                location: "Malleshwaram"
+            },
+            {
+                img: "https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg",
+                head: "Studio Apartment for Rent in Richmond Town",
+                info: { furnishing: "Furnished", bathrooms: 1, Tenant_Preferred: "Students" },
+                description: "Compact and well-maintained studio apartment.",
+                price: "₹22,000",
+                owner: "Owner: Vikram Khanna",
+                location: "Richmond Town"
+            },
+            {
+                img: "https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg",
+                head: "3 BHK Apartment for Rent in Bannerghatta Road",
+                info: { furnishing: "Unfurnished", bathrooms: 3, Tenant_Preferred: "Family" },
+                description: "Spacious apartment with excellent ventilation.",
+                price: "₹55,000",
+                owner: "Owner: Abhishek Singh",
+                location: "Bannerghatta Road"
+            },
+            {
+                img: "https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg",
+                head: "1 RK for Rent in BTM Layout",
+                info: { furnishing: "Furnished", bathrooms: 1, Tenant_Preferred: "Students" },
+                description: "Affordable and well-maintained 1 RK unit.",
+                price: "₹18,500",
+                owner: "Owner: Kunal Mehta",
+                location: "BTM Layout"
+            },
+            {
+                img: "https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg",
+                head: "2 BHK Villa for Rent in Rajarajeshwari Nagar",
+                info: { furnishing: "Semi-Furnished", bathrooms: 2, Tenant_Preferred: "Family" },
+                description: "Private villa with a garden in a serene location.",
+                price: "₹48,000",
+                owner: "Owner: Anil Desai",
+                location: "Rajarajeshwari Nagar"
+            },
+            {
+                img: "https://img.staticmb.com/mbphoto/property/cropped_images/2025/Feb/13/Photo_h300_w450/77756561_4_1739435397046-27084_300_450.jpg",
+                head: "4 BHK Luxury Villa for Rent in Yelahanka",
+                info: { furnishing: "Fully Furnished", bathrooms: 4, Tenant_Preferred: "Family" },
+                description: "Exclusive villa with private pool and security.",
+                price: "₹1,50,000",
+                owner: "Owner: Vijay Rathi",
+                location: "Yelahanka"
+            },
+        ];
+
+        function extractPrice(price) {
+            return parseInt(price.replace(/[₹,]/g, ""));
+        }
+
+        // Render filtered properties
+        function renderProperties() {
+            const propertyList = document.getElementById("propertyList");
+            propertyList.innerHTML = "";
+
+            // Get filter values
+            let maxPrice = document.getElementById("priceRange").value;
+            let furnishingFilter = document.getElementById("furnishing").value;
+            let bathroomsFilter = document.getElementById("bathrooms").value;
+            let tenantFilter = document.getElementById("tenantPreferred").value;
+            let locationSearch = document.getElementById("searchBox").value.toLowerCase();
+
+            properties
+                .filter(property => extractPrice(property.price) <= maxPrice)
+                .filter(property => furnishingFilter === "" || property.info.furnishing === furnishingFilter)
+                .filter(property => bathroomsFilter === "" || property.info.bathrooms == bathroomsFilter)
+                .filter(property => tenantFilter === "" || property.info.Tenant_Preferred === tenantFilter)
+                .filter(property => locationSearch === "" || property.location.toLowerCase().includes(locationSearch))
+                .forEach(property => {
+                    const card = document.createElement("div");
+                    card.classList.add("card");
+                    card.innerHTML = `
+                <img src="${property.img}" alt="Property Image">
+                <div class="details">
+                    <h2>${property.head}</h2>
+                    <h2>location: ${property.location}</h2>
+                    <br/>
+                    
+
+                    <div class="property-info">
+                        <span>Furnishing: ${property.info.furnishing}</span>
+                        <span>Bathrooms: ${property.info.bathrooms}</span>
+                        <span>Tenant Preferred: ${property.info.Tenant_Preferred}</span>
+                        
+                    </div>
+                    <p>${property.description}</p>
+                    <div class="price">${property.price}</div>
+                    <div class="buttons">
+                        <button>Contact Broker</button>
+                    </div>
+                    <div class="owner">${property.owner}</div>
+                </div>
+            `;
+                    propertyList.appendChild(card);
+                });
+        }
+
+        // Update price range display
+        document.getElementById("priceRange").addEventListener("input", function () {
+            document.getElementById("priceValue").innerText = `₹${this.value}`;
+            renderProperties();
+        });
+
+        // Add event listeners for filters
+        document.getElementById("furnishing").addEventListener("change", renderProperties);
+        document.getElementById("bathrooms").addEventListener("change", renderProperties);
+        document.getElementById("tenantPreferred").addEventListener("change", renderProperties);
+        document.getElementById("searchBox").addEventListener("input", renderProperties);
+
+        // Initial render
+        renderProperties();
+    </script>
+
 </body>
 
 </html>
