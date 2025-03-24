@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mess Owner Registration</title>
+    <link rel="stylesheet" href="mess.css">
+</head>
+<body>
+    <div class="container">
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+            <span id="progress-text">0% completed</span>
+        </div>
+        
+        <form id="registration-form">
+            <h2>Mess Owner Registration</h2>
+            <section>
+                <label>Mess Name: <input type="text" name="messname" class="input-field" oninput="updateProgress()"></label>
+                <label>Password: <input type="text" name="pass" class="input-field" oninput="updateProgress()"></label>
+                <label>Email: <input type="email" name="email" class="input-field" oninput="updateProgress()"></label>
+                <label>Mobile: <input type="tel" name="mobile" class="input-field" oninput="updateProgress()"></label>
+                <label>Address: <input type="text" name="address" class="input-field" oninput="updateProgress()"></label>
+            </section>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script src="mess.js"></script>
+</body>
+</html>
