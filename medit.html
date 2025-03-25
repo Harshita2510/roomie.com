@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Mess Profile</title>
+    <link rel="stylesheet" href="medit.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="profile-image-section">
+            <div class="profile-image-wrapper">
+                <img src="" alt="Profile Image" class="profile-image" id="profileImg">
+                <label for="image" class="image-upload-label">
+                    Upload Profile Picture
+                    <input type="file" class="image-upload" id="image" accept="image/*">
+                </label>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <h2>Edit Mess Profile</h2>
+            <form id="registerationForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact">Contact Number</label>
+                        <input type="text" id="contact" name="contact" required placeholder="Enter your contact number">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Mess Time</label>
+                        <input type="text" id="email" name="time" placeholder="Enter mess time">
+                    </div>
+                    <div class="form-group">
+                        <label for="messName">Mess Menu</label>
+                        <input type="text" id="messName" name="course" placeholder="Enter your mess menu">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                        <div class="form-group">
+                            <label for="address">Mess Address</label>
+                            <input type="text" id="address" name="course" placeholder="Enter your mess address">
+                        </div>
+                        <div class="form-group">
+                            <label for="type">Mess Type</label>
+                            <select id="type" name="type">
+                                <option>Veg</option>
+                                <option>Non-Veg</option>
+                                <option>Vegan</option>
+                            </select>
+                        </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cost">Monthly Cost</label>
+                        <input type="number" id="cost" name="cost" placeholder="Enter cost of mess">
+                            
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="description">Additional Note</label>
+                        <textarea id="description" name="description" placeholder="Add information about your mess"></textarea>
+                    </div>
+                </div>
+
+                <button type="submit">Edit Profile</button>
+            </form>
+        </div>
+    </div>
+    <script src="medit.js"></script>
+</body>
+</html>

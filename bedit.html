@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Form</title>
+    <link rel="stylesheet" href="bedit.css">
+</head>
+<body>
+    <div class="container">
+        <div class="profile-image-section">
+            <div class="profile-image-wrapper">
+                <img src="#" alt="Property Image" class="profile-image" id="preview">
+                <label for="image" class="image-upload-label">
+                    Upload Property Image
+                    <input type="file" class="image-upload" id="image" name="image" accept="image/*" onchange="previewImage(event)" required>
+                </label>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <h2>Submit Property Details</h2>
+            <form id="propertyForm" enctype="multipart/form-data">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="propertyName">Property Name</label>
+                        <input type="text" id="propertyName" name="propertyName" required placeholder="Enter property name">
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" name="location" required placeholder="Enter property location">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="number" id="price" name="price" required placeholder="Enter property price">
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Property Type</label>
+                        <select id="type" name="type" required onchange="toggleFields()">
+                            <option value="Flat">Flat</option>
+                            <option value="PG">PG</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group" id="bhkField" style="display: none;">
+                        <label for="bhk">Number of BHK</label>
+                        <input type="number" id="bhk" name="bhk" min="1" placeholder="Enter BHK count">
+                    </div>
+                    <div class="form-group" id="bedsField" style="display: none;">
+                        <label for="beds">Beds Available</label>
+                        <input type="number" id="beds" name="beds" min="1" placeholder="Enter bed count">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group" id="roomsField" style="display: none;">
+                        <label for="rooms">Rooms Available</label>
+                        <input type="number" id="rooms" name="rooms" min="1" placeholder="Enter room count">
+                    </div>
+                    <div class="form-group">
+                        <label for="availability">Availability</label>
+                        <select id="availability" name="availability" required>
+                            <option value="Available">Available</option>
+                            <option value="Not Available">Not Available</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="gender">For</label>
+                        <select id="gender" name="gender" required>
+                            <option value="Girls">Girls</option>
+                            <option value="Boys">Boys</option>
+                            <option value="Both">Both</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Services Offered</label>
+                        <div class="services-container">
+                            <label class="service-item">
+                                <input type="checkbox" name="services" value="High-Speed Wi-Fi"> High-Speed Wi-Fi
+                            </label>
+                            <label class="service-item">
+                                <input type="checkbox" name="services" value="Furnished"> Furnished
+                            </label>
+                            <label class="service-item">
+                                <input type="checkbox" name="services" value="Camera Security"> Camera Security
+                            </label>
+                            <label class="service-item">
+                                <input type="checkbox" name="services" value="Washing Machine"> Washing Machine
+                            </label>
+                            <label class="service-item">
+                                <input type="checkbox" name="services" value="Purified Water"> Purified Water
+                            </label>
+                            <label class="service-item">
+                                <input type="checkbox" name="services" value="Professional Housekeeping"> Professional Housekeeping
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit">Submit Property Details</button>
+            </form>
+        </div>
+    </div>
+    <script src="bedit.js"></script>
+</body>
+</html>

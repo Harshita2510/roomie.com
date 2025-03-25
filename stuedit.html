@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roommate Preference Form</title>
+    <link rel="stylesheet" href="stuedit.css">
+</head>
+<body>
+    <div class="container">
+        <div class="profile-image-section">
+            <div class="profile-image-wrapper">
+                <img src="" alt="Profile Image" class="profile-image" id="profileImg">
+                <label for="imageInput" class="image-upload-label">
+                    Upload Profile Picture
+                    <input type="file" class="image-upload" id="imageInput" accept="image/*">
+                </label>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <h2>Roommate Preference Form</h2>
+            <form id="roommateForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender">
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="hobby">Hobby</label>
+                        <input type="text" id="hobby" name="hobby" placeholder="Enter your favorite hobby">
+                    </div>
+                    <div class="form-group">
+                        <label for="course">Course</label>
+                        <input type="text" id="course" name="course" placeholder="Enter your current course">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="food">Food Preference</label>
+                        <select id="food" name="food">
+                            <option>Veg</option>
+                            <option>Non-Veg</option>
+                            <option>Vegan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="bhk">BHK Preference</label>
+                        <select id="bhk" name="bhk">
+                            <option>1BHK</option>
+                            <option>2BHK</option>
+                            <option>3BHK</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="type">Type</label>
+                        <select id="type" name="type">
+                            <option>Single Sharing</option>
+                            <option>Double Sharing</option>
+                            <option>Triple Sharing</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="note">Additional Note</label>
+                        <textarea id="note" name="note" placeholder="Looking for a roommate with similar interests..."></textarea>
+                    </div>
+                </div>
+
+                <button type="submit">Submit Preferences</button>
+            </form>
+        </div>
+    </div>
+    <script src="stuedit.js"></script>
+</body>
+</html>
