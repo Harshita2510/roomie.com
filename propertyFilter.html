@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Listings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .card {
+            display: flex;
+            width: 1000px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 20px;
+            overflow: hidden;
+            padding: 15px;
+        }
+
+        .card img {
+            width: 250px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .details {
+            flex: 1;
+            padding-left: 20px;
+        }
+
+        .details h2 {
+            margin: 0 0 10px;
+            font-size: 20px;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e60000;
+        }
+
+        .buttons {
+            margin-top: 10px;
+        }
+
+        .buttons button {
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        #edit-form {
+            display: none;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            margin-top: 20px;
+        }
+
+        #edit-form input,
+        #edit-form button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 8px;
+        }
+
+        #edit-form button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Property Listings</h1>
+
+    <!-- Input for Broker License -->
+    <label for="brokerlis">Enter Broker License:</label>
+    <input type="text" id="brokerlis" placeholder="Enter your broker license">
+    <button onclick="fetchProperties()">Search</button>
+
+    <div id="property-container"></div>
+
+    <!-- Edit Form -->
+    <div id="edit-form">
+        <h2>Edit Property</h2>
+        <input type="hidden" id="edit-id">
+        <label>Property Name:</label>
+        <input type="text" id="edit-propertyName">
+        <label>Location:</label>
+        <input type="text" id="edit-location">
+        <label>Price:</label>
+        <input type="number" id="edit-price">
+        <label>Availability:</label>
+        <select id="edit-availability">
+            <option value="Available">Available</option>
+            <option value="Not Available">Not Available</option>
+        </select>
+        <label>Beds:</label>
+        <input type="number" id="edit-beds">
+        <label>Rooms:</label>
+        <input type="number" id="edit-rooms">
+        <button onclick="updateProperty(event)">Update</button>
+    </div>
+
+    <script>
+    async function fetchProperties() {
+        const brokerlis = document.getElementById("brokerlis").value.trim();
+
+        if (!brokerlis) {
+            alert("Please enter a valid broker license.");
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:3019/get-properties/${brokerlis}`);
+            const properties = await response.json();
+            const container = document.getElementById("property-container");
+            container.innerHTML = "";
+
+            if (properties.length === 0) {
+                container.innerHTML = "<p>No properties found for this broker license.</p>";
+                return;
+            }
+
+            properties.forEach(property => {
+                const card = document.createElement("div");
+                card.classList.add("card");
+                card.innerHTML = `
+                    <img src="http://localhost:3019/uploads/${property.image}" alt="Property Image">
+                    <div class="details">
+                        <h2>${property.propertyName}</h2>
+                        <div class="info">
+                            <span>Location: ${property.location}</span>
+                            <span>Price: ₹${property.price}</span>
+                            <span>${property.bhk} BHK</span>
+                            <span>Beds: ${property.beds || 'N/A'}</span>
+                            <span>Rooms: ${property.rooms || 'N/A'}</span>
+                            <span>Availability: ${property.availability}</span>
+                            <span>Services: ${property.services}</span>
+                        </div>
+                        <button onclick="editProperty('${property._id}', '${property.propertyName}', '${property.location}', '${property.price}', '${property.availability}', '${property.beds}', '${property.rooms}')">Edit</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        } catch (error) {
+            console.error("Error fetching properties:", error);
+        }
+    }
+
+    function editProperty(id, propertyName, location, price, availability, beds, rooms) {
+        document.getElementById("edit-form").style.display = "block";
+        document.getElementById("edit-id").value = id;
+        document.getElementById("edit-propertyName").value = propertyName;
+        document.getElementById("edit-location").value = location;
+        document.getElementById("edit-price").value = price;
+        document.getElementById("edit-availability").value = availability;
+        document.getElementById("edit-beds").value = beds;
+        document.getElementById("edit-rooms").value = rooms;
+    }
+
+    async function updateProperty(event) {
+        event.preventDefault();
+        const id = document.getElementById("edit-id").value;
+        const updatedData = {
+            propertyName: document.getElementById("edit-propertyName").value,
+            location: document.getElementById("edit-location").value,
+            price: document.getElementById("edit-price").value,
+            availability: document.getElementById("edit-availability").value,
+            beds: document.getElementById("edit-beds").value,
+            rooms: document.getElementById("edit-rooms").value
+        };
+
+        try {
+            const response = await fetch(`http://localhost:3019/update-property/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(updatedData),
+            });
+
+            if (response.ok) {
+                alert("Property updated successfully!");
+                document.getElementById("edit-form").style.display = "none";
+                fetchProperties();
+            } else {
+                alert("Failed to update property");
+            }
+        } catch (error) {
+            console.error("Error updating property:", error);
+        }
+    }
+    </script>
+
+</body>
+</html>

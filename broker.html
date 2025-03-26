@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Broker Registration</title>
+    <link rel="stylesheet" href="brokerf.css">
+    
+  
+</head>
+<body>
+    <div class="container">
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+            <span id="progress-text">0% completed</span>
+        </div>
+        
+        <form id="registration-form">
+            <h2>Broker Registration</h2>
+        
+            <section>
+                <h3>General Information</h3>
+                <label>Username: 
+                    <input type="text" name="username" class="input-field" required>
+                </label>
+                <label>Password: 
+                    <input type="password" name="password" class="input-field" required>
+                </label>
+                <label>Email: 
+                    <input type="email" name="email" class="input-field" required>
+                </label>
+                <label>Mobile: 
+                    <input type="tel" name="mobile" class="input-field" required>
+                </label>
+                <label>Broker License: 
+                    <input type="text" name="BrokerLicense" class="input-field" required>
+                </label>
+            </section>
+        
+            <section>
+                <h3>Property Details</h3>
+                <label>Property Type: 
+                    <select name="properttype" class="input-field" required>
+                        <option value="">Select</option>
+                        <option value="flat">Flat</option>
+                        <option value="pg">PG</option>
+                        <option value="both">Both</option>
+                    </select>
+                </label>
+                <label>Location: 
+                    <input type="text" name="location" class="input-field" required>
+                </label>
+            </section>
+        
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.getElementById("registration-form");
+        
+            if (!form) {
+                console.error("❌ Form element not found!");
+                return;
+            }
+        
+            const inputs = form.querySelectorAll(".input-field");
+            const progressBar = document.getElementById("progress-bar");
+            const progressText = document.getElementById("progress-text");
+        
+            function updateProgress() {
+                let filled = 0;
+                inputs.forEach(input => {
+                    if (input.value.trim() !== "") {
+                        filled++;
+                    }
+                });
+                let percentage = (filled / inputs.length) * 100;
+                progressBar.style.width = percentage + "%";
+                progressText.innerText = `${Math.round(percentage)}% completed`;
+            }
+        
+            inputs.forEach(input => {
+                input.addEventListener("input", updateProgress);
+                input.addEventListener("change", updateProgress);
+            });
+        
+            // ✅ Fix form submission using Fetch API
+            form.addEventListener("submit", async function (event) {
+                event.preventDefault();
+        
+                const formData = {
+                    username: document.querySelector("[name='username']").value,
+                    password: document.querySelector("[name='password']").value,
+                    email: document.querySelector("[name='email']").value,
+                    mobile: document.querySelector("[name='mobile']").value,
+                    BrokerLicense: document.querySelector("[name='BrokerLicense']").value,
+                    properttype: document.querySelector("[name='properttype']").value,
+                    location: document.querySelector("[name='location']").value
+                };
+        
+                console.log("Submitting Data:", formData);
+        
+                try {
+                    const response = await fetch("http://localhost:3019/brokerx", {  
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(formData)
+                    });
+        
+                    console.log("Raw Response:", response);
+        
+                    if (!response.ok) {
+                        throw new Error(`Server responded with status: ${response.status}`);
+                    }
+        
+                    const result = await response.json();
+                    console.log("Server Response:", result);
+        
+                    if (result.redirect) {
+                        window.location.href = result.redirect;
+                    } else {
+                        alert(result.message);
+                    }
+                } catch (error) {
+                    console.error("Error submitting form:", error);
+                    alert("Error submitting form. Check the console for details.");
+                }
+            });
+        });
+        </script>
+        
+    <!-- <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.getElementById("registration-form");
+            const inputs = form.querySelectorAll(".input-field");
+            const progressBar = document.getElementById("progress-bar");
+            const progressText = document.getElementById("progress-text");
+
+            function updateProgress() {
+                let filled = 0;
+                inputs.forEach(input => {
+                    if (input.value.trim() !== "") {
+                        filled++;
+                    }
+                });
+                let percentage = (filled / inputs.length) * 100;
+                progressBar.style.width = percentage + "%";
+                progressText.innerText = `${Math.round(percentage)}% completed`;
+            }
+
+            inputs.forEach(input => {
+                input.addEventListener("input", updateProgress);
+                input.addEventListener("change", updateProgress);
+            });
+
+            // ✅ Fix form submission using Fetch API
+            document.getElementById("registration-form").addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const formData = {
+        username: document.querySelector("[name='username']").value,
+        password: document.querySelector("[name='password']").value,
+        email: document.querySelector("[name='email']").value,
+        mobile: document.querySelector("[name='mobile']").value,
+        BrokerLicense: document.querySelector("[name='BrokerLicense']").value,
+        properttype: document.querySelector("[name='properttype']").value,
+        location: document.querySelector("[name='location']").value
+    };
+
+    console.log("Submitting Data:", formData);
+
+    try {
+        const response = await fetch("http://localhost:3019/brokerx", {  // ✅ Ensure Correct Port & URL
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData)
+        });
+
+        console.log("Raw Response:", response);
+
+        if (!response.ok) {
+            throw new Error(`Server responded with status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log("Server Response:", result);
+
+        if (result.redirect) {
+            window.location.href = result.redirect;
+        } else {
+            alert(result.message);
+        }
+    } catch (error) {
+        console.error("Error submitting form:", error);
+        alert("Error submitting form. Check the console for details.");
+    }
+});
+
+        });
+    </script> -->
+</body>
+</html>

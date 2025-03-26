@@ -1,0 +1,118 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+h1 {
+    color: #d63333;
+    font-size: 2.5rem;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.btn {
+    background-color: #d63333;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.btn:hover {
+    transform: scale(1.1);
+}
+
+.contact-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+input {
+    width: 90%;
+    padding: 10px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contact {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.contact:hover {
+    transform: scale(1.05);
+}
+
+.contact img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.contact-info {
+    text-align: left;
+}
+
+.contact-info h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.contact-info p {
+    margin: 0;
+    color: #666;
+}
+
+.contact-info a {
+    text-decoration: none;
+    color: #d63333;
+    font-weight: bold;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

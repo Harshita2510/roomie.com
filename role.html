@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role Selection</title>
+    <link rel="stylesheet" href="role.css">
+</head>
+
+<body>
+    <header>
+        <h1>Roomie.com</h1>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>Role Selection</h2>
+            <form id="roleForm">
+                <div class="form-group">
+                    <label for="role">Select Your Role:</label>
+                    <select id="role">
+                        <option value="">-- Choose a role --</option>
+                        <option value="student">Student</option>
+                        <option value="broker">Broker</option>
+                        <option value="mess-owner">Mess Owner</option>
+                    </select>
+                </div>
+
+                <p class="error" id="errorMsg"></p>
+
+                <button type="submit">Continue</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- <footer>
+        <p>&copy; 2025 Roomie.com | All Rights Reserved</p>
+    </footer> -->
+
+    <script src="role.js"></script>
+</body>
+
+</html>
