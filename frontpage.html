@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roomie.com - Find Your Perfect Stay!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00ddff;
+            --secondary-color: #0099cc;
+            --dark-color: #000;
+            --light-color: #fff;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('https://www.creativefabrica.com/wp-content/uploads/2021/06/11/Roommate-Problem-In-Student-Hostel-Room-Graphics-13252539-1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--primary-color);
+            padding: 20px;
+            text-align: center;
+            font-size: 26px;
+            font-weight: bold;
+            position: relative;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--primary-color);
+            font-size: 28px;
+            animation: pulse 2s infinite;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .auth-buttons a {
+            background: var(--primary-color);
+            color: var(--dark-color);
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .auth-buttons a:last-child {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .auth-buttons a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+            color: var(--light-color);
+            border: 1px solid rgba(0, 221, 255, 0.3);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 221, 255, 0.1) 0%, transparent 70%);
+            z-index: -1;
+            animation: pulse 8s infinite alternate;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            text-shadow: 0 2px 10px rgba(0, 221, 255, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .cta-button {
+            background: var(--primary-color);
+            color: var(--dark-color);
+            padding: 15px 30px;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255, 255, 255, 0.3), transparent);
+            transform: translateY(-100%);
+            transition: transform 0.4s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button:hover::after {
+            transform: translateY(0);
+        }
+
+        .section {
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            color: var(--light-color);
+            border: 1px solid rgba(0, 221, 255, 0.3);
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .features-list {
+            list-style: none;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .features-list li {
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            background: rgba(0, 221, 255, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: var(--transition);
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .features-list li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--primary-color);
+            font-size: 18px;
+        }
+
+        .features-list li:hover {
+            transform: translateX(10px);
+            background: rgba(0, 221, 255, 0.2);
+        }
+
+        .target-audience p {
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            background: rgba(0, 221, 255, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .target-audience p:hover {
+            transform: translateX(10px);
+            background: rgba(0, 221, 255, 0.2);
+        }
+
+        .faq-item {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 5px 15px rgba(0, 221, 255, 0.3);
+        }
+
+        .faq-question {
+            background: rgba(0, 221, 255, 0.2);
+            color: var(--light-color);
+            padding: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .faq-question:hover {
+            background: rgba(0, 221, 255, 0.3);
+        }
+
+        .faq-question .toggle {
+            font-size: 20px;
+            color: var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active .toggle {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.5);
+            transition: max-height 0.5s ease, padding 0.3s ease;
+        }
+
+        .faq-answer.show {
+            max-height: 500px;
+            padding: 20px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-100px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .auth-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-home"></i>
+            <span>Roomie.com - Find Your Perfect Stay!</span>
+        </div>
+        <div class="auth-buttons">
+            <a href="login.html">Login</a>
+            <a href="role.html">Register</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="hero">
+            <h1>Find Your Perfect Stay!</h1>
+            <p>Your all-in-one platform for roommates, PGs, flats, and mess services.</p>
+            <a href="#" class="cta-button">Join Now – It's Free!</a>
+        </section>
+
+        <section class="section">
+            <h2>Why Choose Roomie.com?</h2>
+            <ul class="features-list">
+                <li>Verified Users & Secure Transactions</li>
+                <li>Smart Matchmaking for Roommates</li>
+                <li>Easy Listings for Brokers & Mess Owners</li>
+                <li>Transparent Ratings & Reviews</li>
+                <li>24/7 Support & Assistance</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Who is Roomie.com for?</h2>
+            <div class="target-audience">
+                <p><b>Students</b>: Find the best roommates, PGs, and mess services effortlessly.</p>
+                <p><b>Brokers</b>: List and manage PGs & flats with ease.</p>
+                <p><b>Mess Owners</b>: Promote your meal services and reach students directly.</p>
+            </div>
+        </section>
+
+        <section class="section faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How does Roomie.com work?</span>
+                    <span class="toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Roomie.com connects people looking for roommates, PGs, and rental properties in a seamless way.
+                    </p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Is it free to use?</span>
+                    <span class="toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, basic listings and searches are free. However, premium services may have additional costs.
+                    </p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How can I list my property?</span>
+                    <span class="toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Simply sign up, create a listing, and upload details about your property.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="text-align: center;">
+            <h2>Get Started Today!</h2>
+            <a href="#" class="cta-button">Join Now – It's Free!</a>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // FAQ Toggle
+            document.querySelectorAll(".faq-question").forEach(item => {
+                item.addEventListener("click", () => {
+                    const answer = item.nextElementSibling;
+                    const toggleSymbol = item.querySelector(".toggle");
+
+                    item.classList.toggle("active");
+                    answer.classList.toggle("show");
+                });
+            });
+
+            // Section Animations
+            const sections = document.querySelectorAll(".section");
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
+</body>
+
+</html>

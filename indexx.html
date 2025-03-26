@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hostel Finder</title>
     <link rel="stylesheet" href="styless.css">
-   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -14,132 +15,137 @@
             <h1>ROOMIE.COM</h1>
         </div>
         <nav>
-            <div class="dropdown"> <!--div tag creates a container for the dropdown-->
-                <button class="nav-btn" id="menuBtn">Menu</button> <!--defining button that will lead to opening of dropdown-->
-                <div class="dropdown-content" id="dropdownMenu">  <!--this is the dropdown-->
-                    <a href="roommates.html">Roommates</a> <!--anchor tag is used for all the links to other web pages-->
-                    <a href="pg.html">PG</a>
-                    <a href="mess.html">Mess</a>
-                    <a href="emergency.html">Emergency Contacts</a>
-                    <a href="profile.html">Profile</a>
+            <div class="dropdown">
+                <button class="nav-btn" id="menuBtn"><i class="fas fa-bars"></i> Menu</button>
+                <div class="dropdown-content" id="dropdownMenu">
+                    <a href="roommateFilter.html"><i class="fas fa-users"></i> Roommates</a>
+                    <a href="pgflat.html"><i class="fas fa-home"></i> PG</a>
+                    <a href="mess.html"><i class="fas fa-utensils"></i> Mess</a>
+                    <a href="emeergency.html"><i class="fas fa-phone-alt"></i> Emergency Contacts</a>
+                    <a href="roomateform.html"><i class="fas fa-user-circle"></i> Profile</a>
                 </div>
             </div>
-            <button class="nav-btn">Logout</button>
+            <button class="nav-btn" onclick="window.location.href='login.html'"><i class="fas fa-sign-out-alt"></i> Logout</button>
         </nav>
     </header>
-
 
     <section class="hero">
         <div class="hero-image">
             <img src="roomie1.jpg" alt="Hostel Room"> 
+            <div class="overlay"></div>
         </div>
         <div class="hero-text">
             <h1>Find Your <span class="highlight">Perfect Roomie</span> Today</h1>
-            <p>"Sometimes <b>Classic Problems</b> need <b>Modern Solutions</b>"</p>
+            <p class="tagline">"Sometimes <b>Classic Problems</b> need <b>Modern Solutions</b>"</p>
             <div class="buttons">
-                <button class="secondary">Get Started</button>
+                <button class="cta-btn" onclick="window.location.href='roommateFilter.html'">Get Started <i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
     </section>
 
+    
 
-    <div class="search-bar">
-        <input type="text" placeholder="Enter location or preferences...">
-        <button class="search-btn">Search</button>
-    </div>
-
-
-    <div class="hover">
+    <div class="features">
         <div class="container">
             <div class="image-section">
                 <img src="rommie3.jpg" alt="Community Illustration">
             </div>
             <div class="content-section">
                 <h1>Hassle Free <span class="highlight">Searching.</span></h1>
-                <h3><i>We've got it all figured out for you.</h3></i>
-                <ul>
-                    <li><img src="fight.png" alt="icon"> No More Unwanted Fights with Roommates</li>
-                    <li><img src="contract.png" alt="icon"> Transparent Communication</li>
-                   <!--<li><img src="headset.png" alt="icon"> 24x7 Assistance</li>-->
-                    <li><img src="amenities.png" alt="icon">Freedom To Choose</li>
+                <h3><i>We've got it all figured out for you.</i></h3>
+                <ul class="feature-list">
+                    <li><i class="fas fa-handshake"></i> No More Unwanted Fights with Roommates</li>
+                    <li><i class="fas fa-comments"></i> Transparent Communication</li>
+                    <li><i class="fas fa-heart"></i> Freedom To Choose</li>
                 </ul>
             </div>
         </div>
     </div>
 
-
     <div class="faq-container">
-        <div class="faq">
-            <h2>FAQ</h2>
-            <div class="faq-item" onclick="showAnswer(0)">What is Roomie.com and why it's different from others?</div>
-            <div class="faq-item active" onclick="showAnswer(1)">How does Roomie.com contribute to a positive community environment?</div>
-            <div class="faq-item" onclick="showAnswer(2)">How can I get Roomie.com's services for my hostel or PG?</div>
-            <div class="faq-item" onclick="showAnswer(3)">How does Roomie.com work with PG and hostel owners?</div>
-           <!--<div class="faq-item" onclick="showAnswer(4)">Refer and Earn</div>-->
-        </div>
-        <div class="answers">
-            <h2>Answers</h2>
-            <div class="answer-box" id="answer-text">ROOMIE.COM promotes inclusivity, diversity, and collaboration, creating a safe and supportive space for individuals to connect and engage positively with one another, fostering a sense of freedom and safety.</div>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-wrapper">
+            <div class="faq">
+                <div class="faq-item active" onclick="showAnswer(0)">
+                    <i class="fas fa-question-circle"></i> What is Roomie.com and why it's different from others?
+                </div>
+                <div class="faq-item" onclick="showAnswer(1)">
+                    <i class="fas fa-question-circle"></i> How does Roomie.com contribute to a positive community environment?
+                </div>
+                <div class="faq-item" onclick="showAnswer(2)">
+                    <i class="fas fa-question-circle"></i> How can I get Roomie.com's services for my hostel or PG?
+                </div>
+                <div class="faq-item" onclick="showAnswer(3)">
+                    <i class="fas fa-question-circle"></i> How does Roomie.com work with PG and hostel owners?
+                </div>
+            </div>
+            <div class="answers">
+                <div class="answer-box" id="answer-text">
+                    <i class="fas fa-lightbulb"></i>
+                    <p>ROOMIE.COM promotes inclusivity, diversity, and collaboration, creating a safe and supportive space for individuals to connect and engage positively with one another, fostering a sense of freedom and safety.</p>
+                </div>
+            </div>
         </div>
     </div>
-
 
     <footer>
         <div class="footer-container">
             <div class="footer-left">
                 <h2 class="logo">ROOM<span class="highlight">IE</span>.COM</h2>
                 <p>ROOMIE.COM is a startup specializing in connecting roommates. We partner with PG and mess owners to enhance their facilities and reach, offering a modern living experience.</p>
+                <div class="newsletter">
+                    <input type="email" placeholder="Your email address">
+                    <button>Subscribe</button>
+                </div>
             </div>
-
 
             <div class="footer-links">
-                <ul>
-                    <li><a href="#">Our Story</a></li>
-                    <li><a href="#">Our Achievements</a></li>
-                    <li><a href="#">Partner with Us</a></li>
-                </ul>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Code Of Conduct</a></li>
-                    <li><a href="#">Terms & Conditions</a></li>
-                </ul>
-                <ul>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Refund Policy</a></li>
-                </ul>
+                <div class="link-column">
+                    <h3>About Us</h3>
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Our Achievements</a></li>
+                        <li><a href="#">Partner with Us</a></li>
+                    </ul>
+                </div>
+                <div class="link-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Code Of Conduct</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="link-column">
+                    <h3>Policies</h3>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                    </ul>
+                </div>
             </div>
-
 
             <div class="footer-contact">
                 <h3>Connect with Us</h3>
-                <p>Mail: <a href="mailto:support@beiyo.in">support@roomie.in</a></p>
-                <p>Phone: <a href="tel:+918305523140">+91 6264184140</a></p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:support@beiyo.in">support@roomie.in</a></p>
+                <p><i class="fas fa-phone"></i> <a href="tel:+918305523140">+91 6264184140</a></p>
                 <div class="social-icons">
-                    <a href="#"><img src="linkedin.png" alt="LinkedIn"></a>
-                    <a href="#"><img src="instagram.png" alt="Instagram"></a>
-                    <a href="#"><img src="twitter.png" alt="Twitter"></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
                 </div>
             </div>
         </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 ROOMIE.COM. All rights reserved.</p>
+        </div>
     </footer>
 
-
-    <a href="https://wa.me/" class="whatsapp" target="_blank">&#x1F4AC;</a>
+    <a href="https://wa.me/" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <script src="scriptt.js"></script>
-    </body>
+</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

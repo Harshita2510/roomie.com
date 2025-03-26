@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="style.css">
+   
+    <style>
+        /* Page Background */
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: lightblue;
+}
+
+.container {
+    width: 50%;
+    margin: auto;
+    background: white;
+    padding: 50px;
+ 
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px #ccc;
+}
+
+.progress-container {
+    width: 100%;
+    background: #ddd;
+    height: 20px;
+    border-radius: 5px;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: green;
+    border-radius: 5px;
+    transition: width 0.3s ease-in-out;
+}
+
+#progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.input-field {
+    display: block;
+    width: calc(100% - 20px); 
+    margin: 10px auto;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+button {
+    width: calc(100% - 20px); 
+    padding: 10px;
+    background: green;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin: 10px auto;
+    box-sizing: border-box;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+            <span id="progress-text">0% completed</span>
+        </div>
+   
+    <form onsubmit="event.preventDefault(); register();">
+        <h2>Register</h2>
+        
+        <label>Username</label>
+        <input type="text" id="username" required>
+    
+        <label>Password</label>
+        <div class="password-container">
+            <input type="password" id="password" required>
+            <input type="checkbox" onclick="togglePassword()"> Show
+        </div>
+
+        <label>Mobile</label>
+        <input type="tel" id="mobile" required>
+    
+        <label>Email</label>
+        <input type="email" id="email" required>
+    
+        <label>Place</label>
+        <input type="text" id="place" required>
+
+        
+        <button type="submit">Register</button>
+    </form>
+    <script>
+        async function register() {
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+            const mobile = document.getElementById("mobile").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const place = document.getElementById("place").value.trim();
+            
+            
+            if (!username || !password || !mobile || !email || !place ) {
+                alert("All fields are required.");
+                return;
+            }
+
+            const response = await fetch("http://localhost:3019/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password, mobile, email, place})
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert(data.message);
+                window.location.href = "login.html"; // Redirect to login
+            } else {
+                alert(data.error);
+            }
+        }
+
+        function togglePassword() {
+            let passwordField = document.getElementById("password");
+            passwordField.type = passwordField.type === "password" ? "text" : "password";
+        }
+        document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById("registration-form");
+    const inputs = form.querySelectorAll(".input-field");
+    const progressBar = document.getElementById("progress-bar");
+    const progressText = document.getElementById("progress-text");
+
+    function updateProgress() {
+        let filled = 0;
+        inputs.forEach(input => {
+            if (input.value.trim() !== "") {
+                filled++;
+            }
+        });
+        let percentage = (filled / inputs.length) * 100;
+        progressBar.style.width = percentage + "%";
+        progressText.innerText = `${Math.round(percentage)}% completed`;
+    }
+
+    inputs.forEach(input => {
+        input.addEventListener("input", updateProgress);
+        input.addEventListener("change", updateProgress);
+    });
+});
+
+    </script>
+
+</body>
+</html>

@@ -1,23 +1,3 @@
-const questions = [
-    "What is Beiyo and why it's different from others?",
-    "How does Beiyo contribute to a positive community environment?",
-    "How can I get Beiyo's services for my hostel or PG?",
-    "How does Beiyo work with PG and hostel owners?",
-    "Refer and Earn"
-];
-
-
-
-
-const answers = [
-    "It is a unique platform providing better hostel and PG services...",
-    "It promotes inclusivity, diversity, and collaboration, creating a safe and supportive space...",
-    "You can get Roomie.com's services via our website...",
-    "Beiyo partners with PG and Mess owners to improve the experience for students...",
-    "Refer your friends and earn rewards when they join Beiyo."
-];
-
-
 
 
 function showAnswer(index) {
@@ -52,7 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {        //ensures fun
         }
     });
 });
-
 
 
 

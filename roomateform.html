@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roommate Form</title>
+    
+    <!-- <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        form {
+            max-width: 400px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+    </style> -->
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            /* display: flex; */
+            /* justify-content: column; */
+            /* align-items: center; */
+            margin : auto;
+            height: 100vh;
+            /* margin: 0; */
+        }
+    
+        form {
+            background: white;
+            margin :auto;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 150%;
+            border: 2px solid #007bff;
+        }
+    
+        h2 {
+            text-align: center;
+            color: #003366;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+    
+        label {
+            font-weight: bold;
+            color: #003366;
+            display: block;
+            margin-top: 10px;
+        }
+    
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+    
+        select {
+            cursor: pointer;
+        }
+    
+        textarea {
+            resize: none;
+        }
+    
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background-color: #0056b3;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+    
+        button:hover {
+            background-color: #004494;
+        }
+    </style>
+    
+
+</head>
+<body>
+
+    <!-- <h2>Roommate Preference Form</h2> -->
+    <form id="roommateForm">  <!-- ✅ Added missing ID here -->
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <label for="hobby">Hobby:</label>
+        <input type="text" id="hobby" name="hobby" required>
+
+        <label for="course">Course:</label>
+        <input type="text" id="course" name="course" required>
+
+        <label for="food">Food Preference:</label>
+        <select id="food" name="food" required>
+            <option value="Veg">Veg</option>
+            <option value="Non-Veg">Non-Veg</option>
+            <option value="Both">Both</option>
+        </select>
+
+        <label for="bhk">BHK Preference:</label>
+        <select id="bhk" name="bhk" required>
+            <option value="1BHK">1BHK</option>
+            <option value="2BHK">2BHK</option>
+            <option value="3BHK">3BHK</option>
+        </select>
+
+        <label for="type">Type:</label>
+        <select id="type" name="type" required>
+            <option value="Single Sharing">Single Sharing</option>
+            <option value="Double Sharing">Double Sharing</option>
+            <option value="Triple Sharing">Triple Sharing</option>
+        </select>
+
+        <label for="note">Additional Note:</label>
+        <textarea id="note" name="note" rows="3" placeholder="Looking for a roommate with similar interests."></textarea>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {  // ✅ Ensures DOM is loaded first
+            document.getElementById("roommateForm").addEventListener("submit", async function(event) {
+                event.preventDefault();
+
+                const formData = {
+                    name: document.getElementById("name").value,
+                    gender: document.getElementById("gender").value,
+                    hobby: document.getElementById("hobby").value,
+                    course: document.getElementById("course").value,
+                    food: document.getElementById("food").value,
+                    bhk: document.getElementById("bhk").value,
+                    type: document.getElementById("type").value,
+                    note: document.getElementById("note").value
+                };
+
+                try {
+                    const response = await fetch("http://localhost:3019/submit", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(formData)
+                    });
+
+                    const result = await response.json();
+                    alert(result.message);
+                } catch (error) {
+                    console.error("Error submitting form:", error);
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

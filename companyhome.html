@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Tracking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            background-color: #121212;
+            color: #ffffff;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+        }
+        .brand-name {
+            font-size: 28px;
+            font-weight: bold;
+            color: #00aaff;
+            font-family: 'Arial', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+        .search-bar {
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #555;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            background: #222;
+            color: white;
+        }
+        .notification-btn {
+            padding: 10px;
+            border: none;
+            background-color: #f39c12;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .notification-btn:hover {
+            background-color: #e67e22;
+        }
+        .campaign-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .campaign-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .campaign-button {
+            padding: 10px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .campaign-button:hover {
+            background-color: #218838;
+        }
+        .create-btn {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .create-btn:hover {
+            background-color: #0056b3;
+        }
+        .influencer-card {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #444;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            text-align: left;
+            background: #222;
+            color: white;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        .influencer-card img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .influencer-details {
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<body>
+    <button class="notification-btn">🔔</button>
+    <div class="container">
+        <div class="brand-name">Brandfluence</div>
+        <input type="text" class="search-bar" placeholder="Search Company Name...">
+        
+        <div class="campaign-section">
+            <h2>Pre-Posted Campaigns</h2>
+            <button class="create-btn">+ Create New Campaign</button>
+        </div>
+        
+        <div class="campaign-list">
+            <button class="campaign-button" onclick="viewCampaign('Campaign 1')">Campaign 1</button>
+            <button class="campaign-button" onclick="viewCampaign('Campaign 2')">Campaign 2</button>
+            <button class="campaign-button" onclick="viewCampaign('Campaign 3')">Campaign 3</button>
+            <button class="campaign-button" onclick="viewCampaign('Campaign 4')">Campaign 4</button>
+        </div>
+        
+        <div class="influencer-list">
+            <div class="influencer-card">
+                <img src="https://via.placeholder.com/50" alt="Profile">
+                <div class="influencer-details">
+                    <h3>John Doe</h3>
+                    <p>Platform: Instagram</p>
+                    <p>Reach: 100K</p>
+                    <p>Age: 25 | Gender: Male</p>
+                </div>
+            </div>
+            <div class="influencer-card">
+                <img src="https://via.placeholder.com/50" alt="Profile">
+                <div class="influencer-details">
+                    <h3>Jane Smith</h3>
+                    <p>Platform: YouTube</p>
+                    <p>Reach: 200K</p>
+                    <p>Age: 28 | Gender: Female</p>
+                </div>
+            </div>
+            <div class="influencer-card">
+                <img src="https://via.placeholder.com/50" alt="Profile">
+                <div class="influencer-details">
+                    <h3>Mark Johnson</h3>
+                    <p>Platform: TikTok</p>
+                    <p>Reach: 150K</p>
+                    <p>Age: 22 | Gender: Male</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", loadInfluencers);
+      
+        async function loadInfluencers() {
+          try {
+            const response = await fetch("http://localhost:3019/api/influencers");
+            const influencers = await response.json();
+      
+            const influencerList = document.querySelector(".influencer-list");
+            influencerList.innerHTML = ""; // Clear existing static content
+      
+            influencers.forEach(influencer => {
+              const card = document.createElement("div");
+              card.classList.add("influencer-card");
+      
+              card.innerHTML = `
+                <img src="https://via.placeholder.com/50" alt="Profile">
+                <div class="influencer-details">
+                  <h3>${influencer.fullName}</h3>
+                  <p>Platform: ${influencer.socialMedia}</p>
+                  <p>Followers: ${influencer.followers}</p>
+                  <p>Gender: ${influencer.gender}</p>
+                </div>
+              `;
+      
+              influencerList.appendChild(card);
+            });
+          } catch (error) {
+            console.error("Error loading influencers:", error);
+          }
+        }
+        function viewCampaign(campaignName) {
+            alert("Viewing progress of " + campaignName);
+        }
+  
+      </script>
+      
+   
+</body>
+</html>

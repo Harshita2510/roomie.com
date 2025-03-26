@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        async function login() {
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            if (!username || !password) {
+                alert("Username and password are required.");
+                return;
+            }
+
+            try {
+                const response = await fetch("http://localhost:3019/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password }),
+                });
+
+                const data = await response.json();
+                console.log("Response:", data); // Debugging purpose
+
+                if (response.ok && data.success) {
+                    alert(`Login successful as ${data.role}`);
+                    window.location.href = data.redirect; // ✅ Redirect to indexx.html
+                } else {
+                    alert(data.message || "Login failed. Please try again.");
+                }
+            } catch (error) {
+                console.error("❌ Error logging in:", error);
+                alert("Server error. Please try again later.");
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <form onsubmit="event.preventDefault(); login(); ">
+            <label for="username">Username:</label>
+            <input type="text" id="username" placeholder="Username here..." required />
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Password here..." required />
+            <button type="submit">Login</button>
+
+            <p>Haven't registered yet?</p>
+            <a href="role.html">Register here</a>
+        </form>
+        <div class="ear-l"></div>
+        <div class="ear-r"></div>
+        <div class="panda-face">
+            <div class="blush-l"></div>
+            <div class="blush-r"></div>
+            <div class="eye-l">
+                <div class="eyeball-l"></div>
+            </div>
+            <div class="eye-r">
+                <div class="eyeball-r"></div>
+            </div>
+            <div class="nose"></div>
+            <div class="mouth"></div>
+        </div>
+        <div class="hand-l"></div>
+        <div class="hand-r"></div>
+        <div class="paw-l"></div>
+        <div class="paw-r"></div>
+    </div>
+
+    <script>
+        let usernameRef = document.getElementById("username");
+        let passwordRef = document.getElementById("password");
+        let eyeL = document.querySelector(".eyeball-l");
+        let eyeR = document.querySelector(".eyeball-r");
+        let handL = document.querySelector(".hand-l");
+        let handR = document.querySelector(".hand-r");
+
+        let normalEyeStyle = () => {
+            eyeL.style.cssText = `
+    left:0.6em;
+    top: 0.6em;
+  `;
+            eyeR.style.cssText = `
+  right:0.6em;
+  top:0.6em;
+  `;
+        };
+
+        let normalHandStyle = () => {
+            handL.style.cssText = `
+        height: 2.81em;
+        top:8.4em;
+        left:7.5em;
+        transform: rotate(0deg);
+    `;
+            handR.style.cssText = `
+        height: 2.81em;
+        top: 8.4em;
+        right: 7.5em;
+        transform: rotate(0deg)
+    `;
+        };
+        //When clicked on username input
+        usernameRef.addEventListener("focus", () => {
+            eyeL.style.cssText = `
+    left: 0.75em;
+    top: 1.12em;  
+  `;
+            eyeR.style.cssText = `
+    right: 0.75em;
+    top: 1.12em;
+  `;
+            normalHandStyle();
+        });
+        //When clicked on password input
+        passwordRef.addEventListener("focus", () => {
+            handL.style.cssText = `
+        height: 6.56em;
+        top: 3.87em;
+        left: 11.75em;
+        transform: rotate(-155deg);    
+    `;
+            handR.style.cssText = `
+    height: 6.56em;
+    top: 3.87em;
+    right: 11.75em;
+    transform: rotate(155deg);
+  `;
+            normalEyeStyle();
+        });
+        //When clicked outside username and password input
+        document.addEventListener("click", (e) => {
+            let clickedElem = e.target;
+            if (clickedElem != usernameRef && clickedElem != passwordRef) {
+                normalEyeStyle();
+                normalHandStyle();
+            }
+        });
+        // Move eyeballs based on username input length
+        // Move eyeballs based on username input length
+        // Move eyeballs based on username input length
+        // Handle form submission with JavaScript
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert(data.message); // Login successful
+                    // Redirect to another page (e.g., dashboard)
+                    window.location.href = 'dashboard.html';
+                } else {
+                    alert(data.message); // Show error message
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            }
+        });
+
+
+    </script>
+
+    <!-- Script -->
+
+    <!-- <script src="script.js"></script> -->
+</body>
+
+</html>
